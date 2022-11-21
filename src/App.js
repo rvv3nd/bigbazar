@@ -4,6 +4,9 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import './myStyles.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Catalogo from './components/Catalogo';
+
+
 function App() {
   return (
     <div className="App">
@@ -11,7 +14,10 @@ function App() {
         <Navbar/>
       </header>
       <body>
-        <h1>hello world</h1>
+        <Catalogo/>
+        <aside>
+          <h1>Carrito</h1>
+        </aside>
       </body>
       <Footer/>
     </div>
