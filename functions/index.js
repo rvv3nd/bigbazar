@@ -23,21 +23,21 @@ const bazarPrueba = {
   correo: "correo@gmail.com",
   productos: [
     {
-      nombre: "Producto de prueba",
+      producto: "Producto de prueba",
       precio: 100,
       status: "disponible",
       color: "rojo",
       talla: "M",
     },
     {
-      nombre: "Producto de prueba 2",
+      producto: "Producto de prueba 2",
       precio: 200,
       status: "en trato",
       color: "azul",
       talla: "L",
     },
     {
-      nombre: "Producto de prueba 3",
+      producto: "Producto de prueba 3",
       precio: 300,
       status: "vendido",
       color: "verde",
@@ -48,6 +48,10 @@ const bazarPrueba = {
     "local": true,
     "paqueteria": true,
     "punto medio": true,
+  },
+  location: {
+    "edo": "CDMX",
+    "mpo": "Cuauhtémoc",
   },
 };
 app.use((_req, res, next) => {
@@ -75,19 +79,55 @@ async function getBazares() {
   return bazares;
 }
 
-app.route("/bazares").get(async (req, res) => {
-  const bazares = await getBazares();
-  res.json(bazares);
-});
-app.route("/bazares").post(async (req, res) => {
-  const bazar = bazarPrueba;
-  const id = await addBazar(bazar);
-  res.json({id});
-});
+async function getProductos() {
+  const productos = [];
+  const snapshot = await bazaresRef.get();
+  snapshot.forEach((doc) => {
+    doc.data().productos.forEach((producto) => {
+      // console.log(producto);
+      productos.push(producto);
+    }
+    );
+  });
+  return productos;
+}
+
 async function addBazar(bazar) {
   const docRef = await bazaresRef.add(bazar, {merge: true});
   return docRef.id;
 }
+app.route("/productos").get(async (req, res) => {
+  const productos = await getProductos();
+  Promise.resolve(productos).then((productos) => {
+    res.send(productos);
+  }
+  );
+});
+app.route("/productos/orderByPrice").get(async (req, res) => {
+  const productos = await getProductos();
+  const productosOrdenadosDeMenorAMayor = productos.sort((a, b) => {
+    return a.precio - b.precio;
+  });
+  res.json(productosOrdenadosDeMenorAMayor);
+});
 
+app.route("/productos/orderByLocation/:location").get(async (req, res) => {
+  const bazares = await getBazares();
+  const productos = [];
+  bazares.map((bazar) => {
+    if (bazar.location === req.params.location) {
+      productos.push(bazar.productos);
+    }
+  });
+  res.json(productos);
+});
+
+app.route("/bazar/nuevo").post(async (req, res) => {
+  const bazar = bazarPrueba;
+  const id = await addBazar(bazar);
+  res.json({id});
+});
 
 exports.bazarServices = functions.runWith(runtimeOpts).https.onRequest(app);
+
+

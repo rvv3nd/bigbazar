@@ -3,7 +3,7 @@ import React from 'react';
 import {Link, BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Bazares from './Bazares';
 import Ayuda from './Ayuda';
-
+import Catalogo from './Catalogo';
 import { render } from "react-dom";
 import Contacto from './Contacto';
 const root = document.getElementById("root");
@@ -45,7 +45,7 @@ const Navbar = () => {
                     </Route>
                     <Route exact path="/contacto" element={<Contacto/>}>
                     </Route>
-                    <Route exact path="/">
+                    <Route exact path="/" element={<Catalogo/>}>
                     </Route>
                 </Routes>
             </div>

@@ -1,4 +1,4 @@
-function Producto (){
+function Producto (props) {
     return (
         <>
             <div className="container">
@@ -9,8 +9,8 @@ function Producto (){
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">
-                                <h5 className="card-title">Producto.nombre</h5>
-                                <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <h5 className="card-title">{props.producto.producto}</h5>
+                                <p className="card-text">{"Esta "+ props.producto.status+", es talla "+ props.producto.talla +" y es "+props.producto.color}</p>
                                 <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
                             </div>
                         </div>
