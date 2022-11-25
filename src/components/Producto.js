@@ -1,7 +1,8 @@
 import Swal from 'sweetalert2'
+// import $ from 'jquery'
 function Producto (props) {
-
     async function unirseEspera(bazarID,producto) {
+        // $('#loading').show()
         const bazar = await fetch('https://us-central1-big-bazar-d807c.cloudfunctions.net/bazarServices/bazares/'+bazarID, {
             method: 'GET',
             headers: {
@@ -29,6 +30,7 @@ function Producto (props) {
                     'Content-Type': 'application/json',
                     },
                 });
+                // $('#loading').hide()
             Swal.fire({
                     icon: 'success',
                     title: '¡Listo!',
@@ -45,7 +47,7 @@ function Producto (props) {
 
     async function comprarProducto(bazarID,producto) {
         // const bazar = await getBazarPorID(bazarID);
-
+        // $('#loading').show()
         const bazar = await fetch('https://us-central1-big-bazar-d807c.cloudfunctions.net/bazarServices/bazares/'+bazarID, {
             method: 'GET',
             headers: {
@@ -74,14 +76,15 @@ function Producto (props) {
                     },
                 });
             console.log('Mensaje enviado');
+            // $('#loading').hide()
             Swal.fire({
                 icon: 'success',
                 title: '¡Listo!',
                 text: 'Hemos informado el vendedor que estás interesado en el producto. El status cambiará a "En trato" y el vendedor se pondrá en contacto contigo.',
             })
-            .then(() => {
-                window.location.reload();
-            })
+            // .then(() => {
+            //     window.location.reload();
+            // })
         }else{
             Swal.fire({
                 icon: 'error',
@@ -101,6 +104,10 @@ function Producto (props) {
     
     return (
         <>
+            {/* <div class="spinner-border text-light" id="loading" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div> */}
+            {/* {$('#loading').hide()} */}
             <div className="container">
                 <div className="card mb-3">
                     <div className="row g-0">
