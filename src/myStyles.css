@@ -185,7 +185,7 @@ section {
 	display: block;
 	border-radius: 3px;
 	box-sizing: border-box;
-	background-color:  #1f2022;
+	background-color:  #feffff;
 	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
 	border: none;
 	resize: none;
@@ -193,7 +193,7 @@ section {
 	font: inherit;
 	font-size: 14px;
 	font-weight: normal;
-	color:  #d1d2d2;
+	color:  #080909;
 
 	width: 400px;
 	padding: 18px;
@@ -209,7 +209,7 @@ section {
 }
 
 .footer-distributed :-ms-input-placeholder{
-	color:  #5c666b;
+	color:  #18191a;
 }
 
 
@@ -225,8 +225,8 @@ section {
 
 .footer-distributed form button{
 	border-radius: 3px;
-	background-color:  #33383b;
-	color: #ffffff;
+	background-color:  #e5e8ea;
+	color: #0e0c0c;
 	border: 0;
 	padding: 15px 50px;
 	font-weight: bold;
