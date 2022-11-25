@@ -5,23 +5,7 @@ import Producto from './Producto';
     El servicio puede variar con filtros que pueden venir en el props
 */
 import {useEffect, useState} from 'react';
-
-// const respuesta = [
-//     {
-//         nombre: "Producto 1",
-//         precio: 100,
-//         imagen: "imagen1.jpg",
-//         color: "rojo",
-//         talla: "L",
-//     },
-//     {
-//         nombre: "Producto 2",
-//         precio: 200,
-//         imagen: "imagen2.jpg",
-//         color: "azul",
-//         talla: "M",
-//     }
-// ]
+import Footer from './Footer';
 
 function Catalogo() {
     const [productos, setProductos] = useState([]);
@@ -34,11 +18,11 @@ function Catalogo() {
                 });
         const data = await respuesta.json();
         setProductos(data);
-        let respProd = []
-        respuesta.forEach(element => {
-            respProd.push(element.productos)
-        });
-        setProductos(respProd);
+        // let respProd = []
+        // respuesta.forEach(element => {
+        //     respProd.push(element.productos)
+        // });
+        // setProductos(respProd);
     }
     async function getProductosPorTalla(talla) {
         const respuesta = await fetch('https://cors-anywhere.herokuapp.com/https://us-central1-bazar-9a9f0.cloudfunctions.net/api/bazares');
@@ -84,18 +68,21 @@ function Catalogo() {
         fetchProductos();
       },[]);
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-6">
-                    {
-                        productos.map(item =>(
-                            <Producto producto={item}/>
-                        )) 
-                    }
-                    {console.log(productos)}
+        <>
+            <div className="container">
+                <div className="row">
+                    <div className="col-12">
+                        {
+                            productos.map(item =>(
+                                <Producto producto={item}/>
+                            )) 
+                        }
+                        {console.log(productos)}
+                    </div>
                 </div>
             </div>
-        </div>
+            <Footer/>
+        </>
     );
 }
 

@@ -23,10 +23,12 @@ export default function Footer() {
 
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-linkedin"></i></a>
                         <a href="#"><i class="fa fa-github"></i></a>
 
                     </div>
+
+                    <a href="https://www.privacypolicies.com/live/e64425d3-ea60-475c-b1d3-3e8e78d6e5ba">Politicas de Privacidad</a>
+
 
                 </div>
 
