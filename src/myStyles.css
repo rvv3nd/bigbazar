@@ -134,6 +134,9 @@ section {
 	font-weight: normal;
 	margin: 0;
 }
+.footer-distributed {
+	background-color: #64a73a73 !important;
+}
 
 /* Footer social icons */
 

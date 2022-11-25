@@ -19,11 +19,9 @@ export default function Footer() {
 
                     <p class="footer-company-name">Big Bazar © 2022</p>
 
-                    <div class="footer-icons">
+                    <div>
 
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-github"></i></a>
+                        <a href="https://github.com/rvv3nd/bigbazar">Github</a>
 
                     </div>
 
