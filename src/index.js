@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/js/bootstrap.js';
 import 'bootstrap/js/dist/dropdown';
+import { BrowserRouter as Router } from 'react-router-dom';
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
 import App from './App';
@@ -14,7 +15,9 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </React.StrictMode>
 );
 

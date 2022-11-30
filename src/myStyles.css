@@ -45,6 +45,58 @@ body{
     background-color: #94a86f5f ;
 }
 
+
+.wrapper {	
+	margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+.form-signin {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,0.1);  
+}
+  .form-signin-heading{
+	  margin-bottom: 30px;
+	}
+
+	.checkbox {
+	  font-weight: normal;
+	}
+
+	.checkboxes{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+	}
+	.send{
+		margin: 1em;
+	}
+
+
+	.form-control {
+	  position: relative;
+	  font-size: 16px;
+	  height: auto;
+	  padding: 10px;
+	}
+
+	input[type="text"] {
+	  margin-bottom: -1px;
+	  border-bottom-left-radius: 0;
+	  border-bottom-right-radius: 0;
+	}
+
+	input[type="password"] {
+	  margin-bottom: 20px;
+	  border-top-left-radius: 0;
+	  border-top-right-radius: 0;
+	}
+
+
+
 .card{
 	width: 100%;
 	display: flexbox;
@@ -136,6 +188,7 @@ section {
 }
 .footer-distributed {
 	background-color: #64a73a73 !important;
+	position: absolute;
 }
 
 /* Footer social icons */

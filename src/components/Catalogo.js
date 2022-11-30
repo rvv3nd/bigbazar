@@ -18,14 +18,14 @@ function Catalogo() {
                 });
         const data = await respuesta.json();
         setProductos(data);
-        // let respProd = []
-        // respuesta.forEach(element => {
-        //     respProd.push(element.productos)
-        // });
-        // setProductos(respProd);
     }
     async function getProductosPorTalla(talla) {
-        const respuesta = await fetch('https://cors-anywhere.herokuapp.com/https://us-central1-bazar-9a9f0.cloudfunctions.net/api/bazares');
+        const respuesta = await fetch('https://us-central1-big-bazar-d807c.cloudfunctions.net/bazarServices/productos/porTalla', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                },
+                });
         let productos = []
         respuesta.forEach(element => {
             element.productos.forEach(producto => {
@@ -37,7 +37,7 @@ function Catalogo() {
         return productos;
     }
     async function getProductosPrecioMayorAMenor() {
-        const respuesta = await fetch('https://cors-anywhere.herokuapp.com/https://us-central1-bazar-9a9f0.cloudfunctions.net/api/bazares');
+        const respuesta = await fetch('https://us-central1-big-bazar-d807c.cloudfunctions.net/bazarServices/productos/porPrecioMayorAMenor');
         let productos = []
         respuesta.forEach(element => {
             element.productos.forEach(producto => {
@@ -49,7 +49,7 @@ function Catalogo() {
     }
     
     async function getProductosPrecioMenorAMayor() {
-        const respuesta = await fetch('https://cors-anywhere.herokuapp.com/https://us-central1-bazar-9a9f0.cloudfunctions.net/api/bazares');
+        const respuesta = await fetch('https://us-central1-big-bazar-d807c.cloudfunctions.net/bazarServices/productos/porPrecioMenorAMayor');
         let productos = []
         respuesta.forEach(element => {
             element.productos.forEach(producto => {
@@ -77,11 +77,9 @@ function Catalogo() {
                                 <Producto producto={item}/>
                             )) 
                         }
-                        {console.log(productos)}
                     </div>
                 </div>
             </div>
-            <Footer/>
         </>
     );
 }

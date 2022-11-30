@@ -406,7 +406,7 @@ async function updateProducto(productoIndex, bazarID) {
   const bazar = await getBazarById(bazarID);
   bazar.productos[productoIndex].status = "en trato";
   const resp = await bazaresRef.doc(bazarID).update(bazar);
-  console.log("Producto actualizado");
+  // console.log("Producto actualizado");
   return resp;
 }
 app.route("/update/:bazarID/:productoIndex").post(async (req, res) => {
@@ -422,7 +422,7 @@ async function addBazar(bazar) {
 async function unirseEspera(bazarID, productoIndex) {
   const bazar = await getBazarById(bazarID);
   const resp = await bazaresRef.doc(bazarID).update(bazar);
-  console.log("Usuario agregado a la lista de espera");
+  // console.log("Usuario agregado a la lista de espera");
   return resp;
 }
 app.route("/unirseEspera/:bazarID/:productoIndex").post(async (req, res) => {
@@ -448,7 +448,7 @@ async function getProductos() {
   const productos = [];
   const snapshot = await bazaresRef.get();
   snapshot.forEach((doc) => {
-    console.log(doc.id, "=>", doc.data());
+    // console.log(doc.id, "=>", doc.data());
     doc.data().productos.forEach((producto) => {
       producto.bazarID = doc.id;
       productos.push(producto);

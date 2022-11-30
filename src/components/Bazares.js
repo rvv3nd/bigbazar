@@ -37,7 +37,6 @@ function Bazares() {
                     </div>
                 </div>
             </div>
-            <Footer/>
         </>
     )
 }

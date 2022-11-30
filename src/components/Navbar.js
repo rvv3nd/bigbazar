@@ -1,16 +1,15 @@
 import logo from '../img/BB-logo-removebg-preview.png';
 import React from 'react';
-import {Link, BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import Bazares from './Bazares';
-import Ayuda from './Ayuda';
-import Catalogo from './Catalogo';
-import { render } from "react-dom";
-import Contacto from './Contacto';
-import { Dropdown } from 'bootstrap';
-const root = document.getElementById("root");
+import {Link} from 'react-router-dom';
+import {useAuth} from '../context/authContext';
+
 const Navbar = () => {
-    render (
-        <Router>
+    const {logout} = useAuth()
+    const {user} = useAuth()
+    const handlerLogout= async () => {
+        await logout()
+    }
+    return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
                     <a className="navbar-brand" href="/"><img src={logo} alt="logo"></img></a>
@@ -25,6 +24,9 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/bazares"> Bazares</Link> 
                             </li>
+                            <li className="nav-item active">
+                                <Link className="nav-link" to="/pedidos">Pedidos</Link>
+                            </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/ayuda">Ayuda</Link>
                             </li>
@@ -33,7 +35,7 @@ const Navbar = () => {
                             </li>
                         </ul>
                     </div>
-                    <form className="my-2 my-lg-0 buscador">
+                    {/* <form className="my-2 my-lg-0 buscador">
                         <select className="form-select" aria-label="Default select example">
                             <option selected>Ordenar por...</option>
                             <option value="1">Precio Menor a Mayor</option>
@@ -41,22 +43,12 @@ const Navbar = () => {
                             <option value="3">Talla</option>
                         </select>
                         <button className="btn btn-outline-success my-2 my-sm-0" type="button" onClick="ordenar()">🔍</button>
-                    </form>
+                    </form> */}
+                    {user && <button className="btn btn-outline-success my-2 my-sm-0" type="button" onClick={handlerLogout}>Salir</button>}
+                    {!user && <Link className="btn btn-outline-success my-2 my-sm-0" to="/login">Ingresar</Link>}
                 </nav>
-
-                <Routes>
-                    <Route exact path="/bazares" element={<Bazares/>}>
-                    </Route>
-                    <Route exact path="/ayuda" element={<Ayuda/>}>
-                    </Route>
-                    <Route exact path="/contacto" element={<Contacto/>}>
-                    </Route>
-                    <Route exact path="/" element={<Catalogo/>}>
-                    </Route>
-                </Routes>
             </div>
-        </Router>
-    ,root);
+        )
 };
 
 export default Navbar;
