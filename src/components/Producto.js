@@ -1,6 +1,8 @@
 import Swal from 'sweetalert2'
+import { useAuth } from "../context/authContext"
 // import $ from 'jquery'
 function Producto (props) {
+    const {user, loading} = useAuth()
     async function unirseEspera(bazarID,producto) {
         // $('#loading').show()
         const bazar = await fetch('https://us-central1-big-bazar-d807c.cloudfunctions.net/bazarServices/bazares/'+bazarID, {
@@ -56,20 +58,23 @@ function Producto (props) {
                 });
         const data = await bazar.json();
         //console.log(data);
-        const bazarNumero = data.telefono;
-        console.log(bazarNumero);
+        //const bazarNumero = data.telefono;
+        const vendedorID = data.userID;
+        //console.log(user.email)
+        const clienteID = user.reloadUserInfo.localId;
+        //console.log(bazarNumero);
         const productoIndex = data.productos.findIndex((prod) => prod.producto === producto);
-        const productoNombre = producto.split(' ').join('+');
-        const respuesta = await fetch("https://api.ultramsg.com/instance24348/messages/chat?token=g2170nw4892b6iis&to=+52"+bazarNumero+"&body=Hola+estoy+interesado+en+el+producto+"+productoNombre+"+&priority=10"); 
-        const resp = await respuesta.json();
-        if(resp.sent === 'true') {
+        //const productoNombre = producto.split(' ').join('+');
+        // const respuesta = await fetch("https://api.ultramsg.com/instance24348/messages/chat?token=g2170nw4892b6iis&to=+52"+bazarNumero+"&body=Hola+estoy+interesado+en+el+producto+"+productoNombre+"+&priority=10"); 
+        // const resp = await respuesta.json();
+        // if(resp.sent === 'true') {
             await fetch('https://us-central1-big-bazar-d807c.cloudfunctions.net/bazarServices/update/'+bazarID+"/"+productoIndex, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     },
                 });
-            await fetch('https://us-central1-big-bazar-d807c.cloudfunctions.net/bazarServices/pedido/none/'+(bazarID+productoIndex), {
+            await fetch('https://us-central1-big-bazar-d807c.cloudfunctions.net/bazarServices/pedido/'+clienteID+'/'+vendedorID+'/'+productoIndex, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -85,13 +90,13 @@ function Producto (props) {
             // .then(() => {
             //     window.location.reload();
             // })
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Algo salio mal',
-            })
-        }
+        // }else{
+        //     Swal.fire({
+        //         icon: 'error',
+        //         title: 'Oops...',
+        //         text: 'Algo salio mal',
+        //     })
+        // }
     }
     let botonComprar = ""
     if(props.producto.status === "disponible") {
@@ -104,10 +109,6 @@ function Producto (props) {
     
     return (
         <>
-            {/* <div class="spinner-border text-light" id="loading" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div> */}
-            {/* {$('#loading').hide()} */}
             <div className="container">
                 <div className="card mb-3">
                     <div className="row g-0">

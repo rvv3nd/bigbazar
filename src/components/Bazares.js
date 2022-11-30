@@ -1,4 +1,4 @@
-import Footer from "./Footer";
+
 import {useEffect, useState} from 'react';
 import Bazar from "../components/Bazar";
 

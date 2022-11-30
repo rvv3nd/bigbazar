@@ -380,6 +380,30 @@ admin.initializeApp(firebaseConfig.firebase);
 const db = admin.firestore();
 const bazaresRef = db.collection("bazar");
 const pedidosRef = db.collection("pedidos");
+const usersRef = db.collection("usuarios");
+
+async function getProducto(bazarID, indice) {
+  const doc = await bazaresRef.doc(bazarID).get();
+  const bazar = doc.data();
+  return bazar.productos[indice];
+}
+
+// async function getPedidosDe(idVendedor) {
+//   const pedidos = await pedidosRef.where("idVendedor", "==", idVendedor).get();
+//   const productosArray = [];
+//   pedidos.forEach(async (pedido) => {
+//     productosArray.push(await getProducto(idVendedor, pedido.data().idProducto));
+//   });
+//   return productosArray;
+// }
+
+// app.route("/pedidos/:idVendedor")
+//     .get(async (req, res) => {
+//       const idVendedor = req.params.idVendedor;
+//       const pedidos = await getPedidosDe(idVendedor);
+//       res.send(pedidos);
+//     });
+
 async function getBazares() {
   const bazares = [];
   const snapshot = await bazaresRef.get();
@@ -429,18 +453,51 @@ app.route("/unirseEspera/:bazarID/:productoIndex").post(async (req, res) => {
   const msg = await unirseEspera(req.params.bazarID, req.params.productoIndex);
   res.json(msg);
 });
+async function obtieneIDUsuario(correo) {
+  console.log(correo);
+  usersRef.get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      if (doc.data().correo == correo) {
+        console.log(doc.data().userID);
+        return doc.data().userID;
+      }
+    });
+  }
+  );
+}
 
-async function crearPedido(idCliente, idProducto) {
+
+async function getPedidos(id) {
+  const pedidos = await pedidosRef.where("idVendedor", "==", id).get();
+  const productosArray = [];
+  pedidos.forEach(async (pedido) => {
+    productosArray.push(await getProducto(id, pedido.data().idProducto));
+  });
+  return productosArray;
+}
+app.route("/pedidos/:idUsuario").get(async (req, res) => {
+  const idUsuario = req.params.idUsuario;
+  const pedidos = await getPedidos(idUsuario);
+  res.send(pedidos);
+});
+
+app.route("/getuserid").get(async (req, res) => {
+  const msg = await obtieneIDUsuario(req.body.correo);
+  res.json(msg);
+});
+
+async function crearPedido(idCliente, idVendedor, idProducto) {
   const pedido = {
     idCliente: idCliente,
+    idVendedor: idVendedor,
     idProducto: idProducto,
     status: "pendiente",
   };
   const docRef = await pedidosRef.add(pedido, {merge: true});
   return docRef.id;
 }
-app.route("/pedido/:idCliente/:idProducto").post(async (req, res) => {
-  const msg = await crearPedido(req.params.idCliente, req.params.idProducto);
+app.route("/pedido/:idCliente/:idVendedor/:idProducto").post(async (req, res) => {
+  const msg = await crearPedido(req.params.idCliente, req.params.idVendedor, req.params.idProducto);
   res.json(msg);
 });
 

@@ -1,4 +1,4 @@
-import Footer from "./Footer";
+
 function Ayuda() {
     return (
         <>
